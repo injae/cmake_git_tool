@@ -51,7 +51,7 @@ function(git_clone)
             endif()
 
             if(NOT ${ARG_BRANCH} MATCHES "master")
-                excute_process(
+                execute_process(
                     COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
                     WORKING_DIRECTORY ${ARG_PATH}/${name}
                     OUTPUT_VARIABLE output
