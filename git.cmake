@@ -32,7 +32,7 @@ function(git_clone)
             message(STATUS "[cppm] Updating ${name}")
         endif()
             execute_process(
-                COMMAND ${GIT_EXECUTABLE} fetch --all
+                COMMAND ${GIT_EXECUTABLE} fetch
                 COMMAND ${GIT_EXECUTABLE} reset --hard origin/${ARG_BRANCH}
                 WORKING_DIRECTORY ${ARG_PATH}/${name}
                 OUTPUT_VARIABLE output
