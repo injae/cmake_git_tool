@@ -1,5 +1,5 @@
 function(git_clone)
-    cmake_parse_arguments(ARG "QUIET" "URL;BRANCH;PATH" "" ${ARGN})
+    cmake_parse_arguments(ARG "QUIET;ALL" "URL;BRANCH;PATH" "" ${ARGN})
     list(LENGTH ARG_UNPARSED_ARGUMENTS size)
     if(${size} LESS 1)
         message(FATAL_ERROR "You must provide a name")
@@ -9,6 +9,10 @@ function(git_clone)
     find_package(Git REQUIRED)
     if(NOT GIT_FOUND)
         message(FATAL_ERROR "git not found!")
+    endif()
+
+    if(NOT ARG_ALL)
+        set(CLONE_ALL "--all")
     endif()
 
     if(NOT ARG_URL)
@@ -32,7 +36,7 @@ function(git_clone)
             message(STATUS "[cppm] Updating ${name}")
         endif()
             execute_process(
-                COMMAND ${GIT_EXECUTABLE} fetch
+                COMMAND ${GIT_EXECUTABLE} fetch ${CLONE_ALL}
                 COMMAND ${GIT_EXECUTABLE} reset --hard origin/${ARG_BRANCH}
                 WORKING_DIRECTORY ${ARG_PATH}/${name}
                 OUTPUT_VARIABLE output
